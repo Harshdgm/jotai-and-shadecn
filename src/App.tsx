@@ -12,9 +12,8 @@ const App = () => {
      <ScrollToTop />
       <div className="flex flex-col min-h-screen ">
         <Header />
-         <main className="flex-1 mt-16">
+         <main className="flex-1 mt-16 mb-10">
           <AppRoutes />
-          <h1>Hello</h1>
         </main>
         <Footer />
       </div>

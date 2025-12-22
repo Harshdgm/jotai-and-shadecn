@@ -35,30 +35,32 @@ export default function UserCrud() {
     <div className="max-w-md mx-auto mt-10 p-6 border rounded-md bg-gray-50">
       <h2 className="text-xl font-semibold mb-4">User CRUD</h2>
 
+      <div className="flex justify-center gap-2">
       <input
         type="text"
         placeholder="Enter name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full mb-3 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full mb-3 px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      <div className="mb-4">
-        {editId ? (
-          <button
-            onClick={handleUpdate}
-            className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-700"
-          >
-            Update
-          </button>
-        ) : (
-          <button
-            onClick={handleAdd}
-            className="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-          >
-            Add
-          </button>
-        )}
+        <div className="mb-4">
+          {editId ? (
+            <button
+              onClick={handleUpdate}
+              className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-700"
+            >
+              Update
+            </button>
+          ) : (
+            <button
+              onClick={handleAdd}
+              className="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+            >
+              Add
+            </button>
+          )}
+        </div>
       </div>
 
       {loading && (
@@ -79,7 +81,7 @@ export default function UserCrud() {
                   setEditId(u.id);
                   setName(u.name);
                 }}
-                className="px-3 py-1 text-sm text-white bg-gray-600 rounded hover:bg-gray-700"
+                className="px-3 py-1 text-sm text-white bg-green-500 rounded hover:bg-gray-600"
               >
                 Edit
               </button>
