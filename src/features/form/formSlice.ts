@@ -1,5 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FormState, Gender, Country } from "@/types/form";
+import { createSlice } from "@reduxjs/toolkit";
+import { FormState } from "@/types/form";
+import { setName, setEmail, setGender, setCountry } from "@/features/form/formReducer";
+import { submitFormOp, startEditOp, deleteUserOp } from "@/features/form/submittedReducer";
 
 interface FormSliceState {
   current: FormState;
@@ -24,51 +26,22 @@ const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    setName(state, action: PayloadAction<string>) {
-      state.current.name = action.payload;
-    },
-    setEmail(state, action: PayloadAction<string>) {
-      state.current.email = action.payload;
-    },
-    setGender(state, action: PayloadAction<Gender>) {
-      state.current.gender = action.payload;
-    },
-    setCountry(state, action: PayloadAction<Country>) {
-      state.current.country = action.payload;
-    },
+    setName,
+    setEmail,
+    setGender,
+    setCountry,
 
-    submitForm(state) {
-      if (state.editingIndex !== null) {
-        state.submitted[state.editingIndex] = { ...state.current };
-        state.editingIndex = null;
-      } else {
-        state.submitted.push({ ...state.current });
-      }
-
-      state.current = { ...initialCurrent };
-    },
-
-    startEdit(state, action: PayloadAction<number>) {
-      state.current = { ...state.submitted[action.payload] };
-      state.editingIndex = action.payload;
-    },
-
-    deleteUser(state, action: PayloadAction<number>) {
-      state.submitted.splice(action.payload, 1);
-
-      if (state.editingIndex === action.payload) {
-        state.editingIndex = null;
-        state.current = { ...initialCurrent };
-      }
-    },
+    submitForm: submitFormOp,
+    startEdit: startEditOp,
+    deleteUser: deleteUserOp,
   },
 });
 
 export const {
-  setName,
-  setEmail,
-  setGender,
-  setCountry,
+  setName: setNameAction,
+  setEmail: setEmailAction,
+  setGender: setGenderAction,
+  setCountry: setCountryAction,
   submitForm,
   startEdit,
   deleteUser,

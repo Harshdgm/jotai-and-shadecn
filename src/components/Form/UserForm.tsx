@@ -1,10 +1,10 @@
 import { FormEvent, ChangeEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
-  setName,
-  setEmail,
-  setGender,
-  setCountry,
+  setNameAction,
+  setEmailAction,
+  setGenderAction,
+  setCountryAction,
   submitForm,
 } from "@/features/form/formSlice";
 import { Gender, Country } from "@/types/form";
@@ -29,9 +29,7 @@ export default function UserForm() {
     const validationErrors = validateForm(current);
     setErrors(validationErrors);
 
-    if (!isFormValid(validationErrors)) {
-      return;
-    }
+    if (!isFormValid(validationErrors)) return;
 
     dispatch(submitForm());
 
@@ -41,7 +39,7 @@ export default function UserForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto max-w-md space-y-6 rounded-xl border border-gray-200 bg-white p-6 shadow-md"
+      className="mx-auto max-w-md space-y-6 rounded-xl border border-gray-200 bg-white p-6 mt-10"
     >
       <h2 className="text-lg font-semibold text-gray-800">
         {editingIndex !== null ? "Edit User" : "Add User"}
@@ -53,7 +51,7 @@ export default function UserForm() {
           type="text"
           value={current.name}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            dispatch(setName(e.target.value))
+            dispatch(setNameAction(e.target.value))
           }
           className={`rounded-md border px-3 py-2 text-sm outline-none transition
             ${
@@ -72,7 +70,7 @@ export default function UserForm() {
         <input
           type="email"
           value={current.email}
-          onChange={(e) => dispatch(setEmail(e.target.value))}
+          onChange={(e) => dispatch(setEmailAction(e.target.value))}
           className={`rounded-md border px-3 py-2 text-sm outline-none transition
             ${
               errors.email
@@ -96,7 +94,7 @@ export default function UserForm() {
               <input
                 type="radio"
                 checked={current.gender === g}
-                onChange={() => dispatch(setGender(g))}
+                onChange={() => dispatch(setGenderAction(g))}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500"
               />
               <span className="capitalize">{g}</span>
@@ -110,7 +108,7 @@ export default function UserForm() {
         <select
           value={current.country}
           onChange={(e) =>
-            dispatch(setCountry(e.target.value as Country))
+            dispatch(setCountryAction(e.target.value as Country))
           }
           className="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-blue-500"
         >
@@ -120,7 +118,6 @@ export default function UserForm() {
         </select>
       </div>
 
-   
       <button
         type="submit"
         className={`w-full rounded-md py-2 text-sm font-semibold text-white transition ${

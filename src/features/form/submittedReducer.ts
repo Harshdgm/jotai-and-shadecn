@@ -14,7 +14,12 @@ export const submitFormOp = (state: FormSliceState) => {
   } else {
     state.submitted.push({ ...state.current });
   }
-  state.current = { ...state.current }; // optional: reset if needed
+  state.current = {
+    name: "",
+    email: "",
+    gender: "male",
+    country: "india",
+  };
 };
 
 export const startEditOp = (state: FormSliceState, action: PayloadAction<number>) => {
@@ -27,6 +32,6 @@ export const deleteUserOp = (state: FormSliceState, action: PayloadAction<number
 
   if (state.editingIndex === action.payload) {
     state.editingIndex = null;
-    state.current = { ...state.current }; // optional: reset if needed
+    state.current = { ...state.current }; 
   }
 };
