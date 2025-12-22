@@ -1,19 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { FormState, UpdateFieldPayload } from '@/types/form';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FormState, Gender, Country } from "@/types/form";
 
 const initialState: FormState = {
-  name: '',
-  email: '',
-  gender: '',
-  country: '',
+  name: "",
+  email: "",
+  gender: "male",
+  country: "india",
 };
 
 const formSlice = createSlice({
-  name: 'form',
+  name: "form",
   initialState,
   reducers: {
-    updateField(state, action: PayloadAction<UpdateFieldPayload>) {
-      state[action.payload.field] = action.payload.value;
+    setName(state, action: PayloadAction<string>) {
+      state.name = action.payload;
+    },
+    setEmail(state, action: PayloadAction<string>) {
+      state.email = action.payload;
+    },
+    setGender(state, action: PayloadAction<Gender>) {
+      state.gender = action.payload;
+    },
+    setCountry(state, action: PayloadAction<Country>) {
+      state.country = action.payload;
     },
     resetForm() {
       return initialState;
@@ -21,9 +30,12 @@ const formSlice = createSlice({
   },
 });
 
-export type FormActions =
-  | ReturnType<typeof formSlice.actions.updateField>
-  | ReturnType<typeof formSlice.actions.resetForm>;
+export const {
+  setName,
+  setEmail,
+  setGender,
+  setCountry,
+  resetForm,
+} = formSlice.actions;
 
-export const { updateField, resetForm } = formSlice.actions;
 export default formSlice.reducer;
