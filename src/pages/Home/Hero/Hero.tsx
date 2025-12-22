@@ -1,13 +1,11 @@
-//import UserCrud from '@/components/UserCrud/UserCrud'
-import Form from '@/components/Form/Form'
-
-import React from 'react'
+import UserForm from '@/components/Form/UserForm'
+import UserTable from '@/components/Form/UserTable'
 
 export default function Hero() {
   return (
     <>
-      {/* <div><UserCrud /></div> */}
-      <div><Form /></div>
+      <div><UserForm /></div>
+      <div><UserTable /></div>
     </>
   )
 }

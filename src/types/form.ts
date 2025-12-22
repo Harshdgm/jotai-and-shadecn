@@ -7,8 +7,3 @@ export interface FormState {
   gender: Gender;
   country: Country;
 }
-
-export interface UpdateFieldPayload {
-  field: keyof FormState;
-  value: string;
-}

@@ -1,11 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FormState, Gender, Country } from "@/types/form";
 
-const initialState: FormState = {
+interface FormSliceState {
+  current: FormState;
+  submitted: FormState[];
+  editingIndex: number | null;
+}
+
+const initialCurrent: FormState = {
   name: "",
   email: "",
   gender: "male",
   country: "india",
+};
+
+const initialState: FormSliceState = {
+  current: initialCurrent,
+  submitted: [],
+  editingIndex: null,
 };
 
 const formSlice = createSlice({
@@ -13,19 +25,41 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     setName(state, action: PayloadAction<string>) {
-      state.name = action.payload;
+      state.current.name = action.payload;
     },
     setEmail(state, action: PayloadAction<string>) {
-      state.email = action.payload;
+      state.current.email = action.payload;
     },
     setGender(state, action: PayloadAction<Gender>) {
-      state.gender = action.payload;
+      state.current.gender = action.payload;
     },
     setCountry(state, action: PayloadAction<Country>) {
-      state.country = action.payload;
+      state.current.country = action.payload;
     },
-    resetForm() {
-      return initialState;
+
+    submitForm(state) {
+      if (state.editingIndex !== null) {
+        state.submitted[state.editingIndex] = { ...state.current };
+        state.editingIndex = null;
+      } else {
+        state.submitted.push({ ...state.current });
+      }
+
+      state.current = { ...initialCurrent };
+    },
+
+    startEdit(state, action: PayloadAction<number>) {
+      state.current = { ...state.submitted[action.payload] };
+      state.editingIndex = action.payload;
+    },
+
+    deleteUser(state, action: PayloadAction<number>) {
+      state.submitted.splice(action.payload, 1);
+
+      if (state.editingIndex === action.payload) {
+        state.editingIndex = null;
+        state.current = { ...initialCurrent };
+      }
     },
   },
 });
@@ -35,7 +69,9 @@ export const {
   setEmail,
   setGender,
   setCountry,
-  resetForm,
+  submitForm,
+  startEdit,
+  deleteUser,
 } = formSlice.actions;
 
 export default formSlice.reducer;
