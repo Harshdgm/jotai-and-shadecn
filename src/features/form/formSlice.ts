@@ -30,7 +30,6 @@ const formSlice = createSlice({
     setEmail,
     setGender,
     setCountry,
-
     submitForm: submitFormOp,
     startEdit: startEditOp,
     deleteUser: deleteUserOp,
