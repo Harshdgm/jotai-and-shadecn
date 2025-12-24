@@ -14,24 +14,37 @@ export const submitFormOp = (state: FormSliceState) => {
   } else {
     state.submitted.push({ ...state.current });
   }
+
   state.current = {
     name: "",
     email: "",
+    phone: "",
     gender: "male",
     country: "india",
+    dateRange: {
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+      key: "selection",
+    },
+    skills: [],
   };
 };
 
-export const startEditOp = (state: FormSliceState, action: PayloadAction<number>) => {
+export const startEditOp = (
+  state: FormSliceState,
+  action: PayloadAction<number>
+) => {
   state.current = { ...state.submitted[action.payload] };
   state.editingIndex = action.payload;
 };
 
-export const deleteUserOp = (state: FormSliceState, action: PayloadAction<number>) => {
+export const deleteUserOp = (
+  state: FormSliceState,
+  action: PayloadAction<number>
+) => {
   state.submitted.splice(action.payload, 1);
 
   if (state.editingIndex === action.payload) {
     state.editingIndex = null;
-    state.current = { ...state.current }; 
   }
 };
